@@ -3,6 +3,7 @@ package database
 import (
 	"fmt"
 
+	"github.com/bopher/utils"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
 )
@@ -11,10 +12,10 @@ import (
 func NewMySQLConnector(host string, username string, password string, database string) (*sqlx.DB, error) {
 	db, err := sqlx.Open("mysql", fmt.Sprintf("%s:%s@%s/%s?charset=utf8mb4&parseTime=true", username, password, host, database))
 	if err != nil {
-		return nil, err
+		return nil, utils.TaggedError([]string{"MySQLDriver"}, err.Error())
 	}
 	if err := db.Ping(); err != nil {
-		return nil, err
+		return nil, utils.TaggedError([]string{"MySQLDriver"}, err.Error())
 	}
 	return db, nil
 }
