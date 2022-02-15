@@ -124,3 +124,70 @@ qBuilder.Add(database.Query{
 fmt.Print(qBuilder.Query()) // firstname LIKE '%?%' AND role IN(?, ?, ?) AND (age > ? AND age < ?)
 fmt.Print(qBuilder.Params()) // ["john", "admin", "support", "user", 15, 30]
 ```
+
+## Migration
+
+A set of command for migrating and seeding SQL database. This package use pure SQL file for migrating.
+
+Driver flag is optional and default driver used if this flag not passed. When using multiple database driver, this flag used by resolver function to get database driver by name.
+
+Migration and seed files directory will get at register time and also can set by flags.
+
+**Note:** This package use `"github.com/jmoiron/sqlx"` as database driver.
+
+**Note:** All sub commands automatically registered when main migration command registered.
+
+```bash
+myApp migration [command] --driver --migration_dir --seed_dir
+# or simply
+myApp migration [command] -d -m -s
+```
+
+```go
+// Signature:
+MigrationCommand(resolver func(driver string) *sqlx.DB, defDriver string, migDir string, seedDir string) *cobra.Command
+
+// Example
+import "github.com/bopher/database/migration"
+rootCmd.AddCommand(migration.MigrationCommand(myResolver, "--APP-DB", "./database/migrations", "./database/seeds"))
+```
+
+### Clear
+
+Delete all database table.
+
+```bash
+myApp migration clear --driver
+```
+
+### Migrate
+
+Migrate database.
+
+```bash
+myApp migration migrate --driver --migration_dir
+```
+
+### Migrated
+
+Show migrated files list.
+
+```bash
+myApp migration migrated --driver
+```
+
+### Seed
+
+Seed database.
+
+```bash
+myApp migration seed --driver --seed_dir
+```
+
+### Seeded
+
+Show seeded files list.
+
+```bash
+myApp migration seeded --driver
+```
