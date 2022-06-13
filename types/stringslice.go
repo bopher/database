@@ -13,7 +13,7 @@ type StringSlice struct {
 }
 
 // Scan implements the Scanner interface.
-func (me *StringSlice) Scan(value interface{}) error {
+func (me *StringSlice) Scan(value any) error {
 	if value != nil {
 		temp := sql.NullString{}
 		err := temp.Scan(value)
@@ -35,7 +35,7 @@ func (me *StringSlice) Value() (driver.Value, error) {
 }
 
 // Val get nullable value
-func (me *StringSlice) Val() interface{} {
+func (me *StringSlice) Val() any {
 	if len(me.Strings) == 0 {
 		return nil
 	}

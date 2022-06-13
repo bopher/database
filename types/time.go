@@ -14,7 +14,7 @@ type NullTime struct {
 }
 
 // Scan implements the Scanner interface.
-func (me *NullTime) Scan(value interface{}) error {
+func (me *NullTime) Scan(value any) error {
 	me.Time, me.Valid = time.Time{}, false
 	if value != nil {
 		temp := sql.NullTime{}
@@ -36,7 +36,7 @@ func (me *NullTime) Value() (driver.Value, error) {
 }
 
 // Val get nullable value
-func (me *NullTime) Val() interface{} {
+func (me *NullTime) Val() any {
 	if !me.Valid {
 		return nil
 	}

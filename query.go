@@ -4,6 +4,6 @@ package database
 type Query struct {
 	Type    string
 	Query   string
-	Params  []interface{}
+	Params  []any
 	Closure bool
 }

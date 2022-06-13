@@ -13,7 +13,7 @@ type NullUInt struct {
 }
 
 // Scan implements the Scanner interface.
-func (me *NullUInt) Scan(value interface{}) error {
+func (me *NullUInt) Scan(value any) error {
 	me.UInt, me.Valid = 0, false
 	if value != nil {
 		temp := sql.NullInt64{}
@@ -35,7 +35,7 @@ func (me *NullUInt) Value() (driver.Value, error) {
 }
 
 // Val get nullable value
-func (me *NullUInt) Val() interface{} {
+func (me *NullUInt) Val() any {
 	if !me.Valid {
 		return nil
 	}

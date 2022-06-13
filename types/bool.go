@@ -13,7 +13,7 @@ type NullBool struct {
 }
 
 // Scan implements the Scanner interface.
-func (nb *NullBool) Scan(value interface{}) error {
+func (nb *NullBool) Scan(value any) error {
 	nb.Bool, nb.Valid = false, false
 	if value != nil {
 		temp := sql.NullBool{}
@@ -35,7 +35,7 @@ func (nb *NullBool) Value() (driver.Value, error) {
 }
 
 // Val get nullable value
-func (nb *NullBool) Val() interface{} {
+func (nb *NullBool) Val() any {
 	if !nb.Valid {
 		return nil
 	}

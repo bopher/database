@@ -89,7 +89,7 @@ Get query builder parameters.
 
 ```go
 // Signature:
-Params() []interface{}
+Params() []any
 ```
 
 ### Query Structure Fields
@@ -98,7 +98,7 @@ Params() []interface{}
 
 **Query** _(String)_: Query string.
 
-**Params** _[]interface{}_: Query parameters.
+**Params** _[]any_: Query parameters.
 
 **Closure** _bool_: Determine query is sub query or not.
 
@@ -108,17 +108,17 @@ import "fmt"
 var qBuilder database.QueryBuilder
 qBuilder.Add(database.Query{
     Query:  "firstname LIKE '%?%'",
-    Params: []interface{}{"john"},
+    Params: []any{"john"},
 })
 qBuilder.Add(database.Query{
     Type: "AND",
     Query:  "role @in",
-    Params: []interface{}{"admin", "support", "user"},
+    Params: []any{"admin", "support", "user"},
 })
 qBuilder.Add(database.Query{
     Type: "AND",
     Query:  "age > ? AND age < ?",
-    Params: []interface{}{15, 30},
+    Params: []any{15, 30},
     Closure: true,
 })
 fmt.Print(qBuilder.Query()) // firstname LIKE '%?%' AND role IN(?, ?, ?) AND (age > ? AND age < ?)

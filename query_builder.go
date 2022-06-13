@@ -44,7 +44,7 @@ func (qb *QueryBuilder) Query() (res string) {
 }
 
 // Params get query parameters
-func (qb *QueryBuilder) Params() (vars []interface{}) {
+func (qb *QueryBuilder) Params() (vars []any) {
 	for _, q := range qb.queries {
 		vars = append(vars, q.Params...)
 	}

@@ -14,7 +14,7 @@ type Float32Slice struct {
 }
 
 // Scan implements the Scanner interface.
-func (me *Float32Slice) Scan(value interface{}) error {
+func (me *Float32Slice) Scan(value any) error {
 	if value != nil {
 		temp := sql.NullString{}
 		err := temp.Scan(value)
@@ -45,7 +45,7 @@ func (me *Float32Slice) Value() (driver.Value, error) {
 }
 
 // Val get nullable value
-func (me *Float32Slice) Val() interface{} {
+func (me *Float32Slice) Val() any {
 	res := make([]string, 0)
 	for _, f := range me.Floats {
 		res = append(res, strconv.FormatFloat(float64(f), 'f', -1, 32))

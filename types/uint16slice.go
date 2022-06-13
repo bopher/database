@@ -14,7 +14,7 @@ type UInt16Slice struct {
 }
 
 // Scan implements the Scanner interface.
-func (me *UInt16Slice) Scan(value interface{}) error {
+func (me *UInt16Slice) Scan(value any) error {
 	if value != nil {
 		temp := sql.NullString{}
 		err := temp.Scan(value)
@@ -45,7 +45,7 @@ func (me *UInt16Slice) Value() (driver.Value, error) {
 }
 
 // Val get nullable value
-func (me *UInt16Slice) Val() interface{} {
+func (me *UInt16Slice) Val() any {
 	res := make([]string, 0)
 	for _, n := range me.Ints {
 		res = append(res, strconv.Itoa(int(n)))
